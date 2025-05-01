@@ -1,0 +1,126 @@
+# GET http://localhost:3000/songs
+
+
+# POST http://localhost:3000/songs
+# GET http://localhost:3000/songs/id
+# # DELETE  http://localhost:3000/songs/id
+# POST http://localhost:3000/songs
+
+
+
+# 
+# GET http://localhost:3000/songs
+# POST http://localhost:3000/songs
+# GET http://localhost:3000/songs/2
+# DELETE  http://localhost:3000/songs/1
+# PUT http://localhost:3000/songs/1
+
+# GET http://localhost:3000/songs/?page=2&limit=2 //Adding query builder & pagination
+
+
+###one to one & many to many
+# POST http://localhost:3000/songs /
+# Content-Type: application/json
+
+# {
+#   "title": "You for me new 3",
+#   "artists": [1, 2],
+#   "releaseDate": "2022-08-29T00:00:00.000Z",
+#   "duration": "1970-01-01T02:34:00.000Z",
+#   "lyrics": "By, you're my adrenaline"
+# }
+
+
+
+# ## Signup User
+# POST http://localhost:3000/auth/signup
+# Content-Type: application/json
+
+# {
+#   "firstName": "krish",
+#   "lastName": "kriao",
+#   "email": "Krish@gmail.com",
+#   "password": "1212121"
+# }
+
+
+#### Login User   -- we can create Token and we use it in app.controller profile get endpoint 
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "ArtistArt@gmail.com",
+  "password": "123art"
+}
+
+# output this need to be implement in FE to handle
+# {
+#   "validate2FA": "http://localhost:3000/auth/validate-2fa",
+#   "message": "Please send the one-time password/token from your Google Authenticator App"
+# }
+ 
+### app.controller Get profile endpoint - to access auth for specific customer 
+# GET http://localhost:3000/profile
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZ21haWwuY29tIiwic3ViIjo0LCJpYXQiOjE3NDU4MTQwNzgsImV4cCI6MTc0NTkwMDQ3OH0.siOWJ8slitoSll4t0iqyvRxJmPIso1Iw5QkZANCvhE0
+
+
+
+
+### signUp artist
+# POST http://localhost:3000/auth/signup
+# Content-Type: application/json
+
+# {
+#   "firstName": "Artist1",
+#   "lastName": "art",
+#   "email": "ArtistArt@gmail.com",
+#   "password": "123art"
+# }
+
+###login artist -- getting the token
+# POST http://localhost:3000/auth/login
+# Content-Type: application/json
+
+# {
+#   "email": "ArtistArt@gmail.com",
+#   "password": "123art"
+# }
+
+### getting the login artistID
+# GET http://localhost:3000/profile
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFydGlzdEFydEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImFydGlzdElkIjoyLCJpYXQiOjE3NDU5MDAwNzgsImV4cCI6MTc0NTk4NjQ3OH0.YL4Hhvokb0hDn8foBaT6Ix3zzERWKBMs7yHSy6y3sZU
+
+
+### with out auth key we are not able to create new 
+# POST http://localhost:3000/songs 
+# Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFydGlzdEFydEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImFydGlzdElkIjoyLCJpYXQiOjE3NDU5MDAwNzgsImV4cCI6MTc0NTk4NjQ3OH0.YL4Hhvokb0hDn8foBaT6Ix3zzERWKBMs7yHSy6y3sZU
+
+# {
+#   "title": "love me again",
+#   "artists": [4],
+#   "releaseDate": "2025-03-28T00:00:00.000Z",
+#   "duration": "2025-01-01T02:34:00.000Z",
+#   "lyrics": "By love me again Authorization auth, you're my adrenaline"
+# }
+
+
+
+###enable 2fa token
+# GET http://localhost:3000/auth/enable-2fa
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFydGlzdEFydEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImFydGlzdElkIjoyLCJpYXQiOjE3NDU5MDM5OTUsImV4cCI6MTc0NTk5MDM5NX0.0Bjt1J2GXchN3omAGMukbqYLWGEqDLpqgr4ihiw7U1k
+
+ 
+### validate 2fa token
+# POST http://localhost:3000/auth/validate-2fa
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFydGlzdEFydEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImFydGlzdElkIjoyLCJpYXQiOjE3NDU5MDM5OTUsImV4cCI6MTc0NTk5MDM5NX0.0Bjt1J2GXchN3omAGMukbqYLWGEqDLpqgr4ihiw7U1k
+# Content-Type: application/json
+
+# {
+#   "token": "054603"
+# }
+
+
+### Disable 2fa 
+# GET http://localhost:3000/auth/disable-2fa
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFydGlzdEFydEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImFydGlzdElkIjoyLCJpYXQiOjE3NDU5MDM5OTUsImV4cCI6MTc0NTk5MDM5NX0.0Bjt1J2GXchN3omAGMukbqYLWGEqDLpqgr4ihiw7U1k
