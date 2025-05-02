@@ -32,26 +32,26 @@
 
 
 
-# ## Signup User
+## Signup User
 # POST http://localhost:3000/auth/signup
 # Content-Type: application/json
 
 # {
-#   "firstName": "krish",
-#   "lastName": "kriao",
-#   "email": "Krish@gmail.com",
-#   "password": "1212121"
+#   "firstName": "hanna",
+#   "lastName": "harman",
+#   "email": "hanna123@gmail.com",
+#   "password": "121212122"
 # }
 
 
 #### Login User   -- we can create Token and we use it in app.controller profile get endpoint 
-POST http://localhost:3000/auth/login
-Content-Type: application/json
+# POST http://localhost:3000/auth/login
+# Content-Type: application/json
 
-{
-  "email": "ArtistArt@gmail.com",
-  "password": "123art"
-}
+# {
+#   "email": "ArtistArt@gmail.com",
+#   "password": "123art"
+# }
 
 # output this need to be implement in FE to handle
 # {
@@ -124,3 +124,7 @@ Content-Type: application/json
 ### Disable 2fa 
 # GET http://localhost:3000/auth/disable-2fa
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFydGlzdEFydEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImFydGlzdElkIjoyLCJpYXQiOjE3NDU5MDM5OTUsImV4cCI6MTc0NTk5MDM5NX0.0Bjt1J2GXchN3omAGMukbqYLWGEqDLpqgr4ihiw7U1k
+
+#  API Key Authentication ---  give apikey in bearer from sigup endpoint
+GET http://localhost:3000/auth/profile
+Authorization: Bearer 36fb83d5-324f-4612-83b0-acfebb74ac7c

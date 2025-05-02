@@ -7,6 +7,7 @@ import { ArtistsService } from '../artists/artists.service';
 import { Enable2FAType, PayloadType } from './dto/types';
 import * as speakeasy from 'speakeasy';
 import { UpdateResult } from 'typeorm';
+import { User } from '../users/users.entity';
 @Injectable()
 export class AuthService {
   constructor(
@@ -87,5 +88,9 @@ export class AuthService {
   // Disable the 2fa secret
   async disable2FA(userId: number): Promise<UpdateResult> {
     return this.userService.disable2FA(userId);
+  }
+
+  async validateUserByApiKey(apiKey: string): Promise<User> {
+    return this.userService.findByApiKey(apiKey);
   }
 }
