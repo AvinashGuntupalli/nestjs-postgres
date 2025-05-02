@@ -1,4 +1,4 @@
-# nestjs-api-postgres-auth-db
+# nestjs-api-postgres-db-auth-pgAdmin
 
 # NestJS CRUD API with PostgreSQL, Validation, and Auth
 
