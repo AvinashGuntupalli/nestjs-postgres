@@ -125,6 +125,10 @@
 # GET http://localhost:3000/auth/disable-2fa
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFydGlzdEFydEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImFydGlzdElkIjoyLCJpYXQiOjE3NDU5MDM5OTUsImV4cCI6MTc0NTk5MDM5NX0.0Bjt1J2GXchN3omAGMukbqYLWGEqDLpqgr4ihiw7U1k
 
-#  API Key Authentication ---  give apikey in bearer from sigup endpoint
-GET http://localhost:3000/auth/profile
-Authorization: Bearer 36fb83d5-324f-4612-83b0-acfebb74ac7c
+###  API Key Authentication ---  give apikey in bearer from sigup endpoint
+# GET http://localhost:3000/auth/profile
+# Authorization: Bearer 36fb83d5-324f-4612-83b0-acfebb74ac7c
+
+
+### migration
+# npm run migration:generate -- db/migrations/add-user-phone

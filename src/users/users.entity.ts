@@ -27,4 +27,7 @@ export class User {
 
   @Column({ default: '' }) //Generate API Keys
   apiKey: string;
+
+  @Column({ nullable: true })
+  phone: string;
 }
