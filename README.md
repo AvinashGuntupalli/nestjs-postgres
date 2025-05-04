@@ -18,4 +18,8 @@ This project is a modular, **NestJS API** that includes full CRUD functionality,
 - PgAdmin integration for DB inspection
 - Environment-based config management
 
+## Features Implemented in migration-seed BRANCH
 
+- TypeORM Migrations: Manage database schema changes with version control.
+- Database Seeding: Automatically populate tables with initial data like users, roles, etc.
+- Modular Setup: Migration and seed logic separated cleanly inside db/migrations/ and db/seeding/.
