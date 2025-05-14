@@ -2,7 +2,7 @@
 
 # NestJS CRUD API with PostgreSQL, Validation, and Auth
 
-This project is a modular, **NestJS API** that includes full CRUD functionality, database integration using **PostgreSQL and TypeORM**, input validation, custom pipes, middleware logging, pagination, and API key-based authentication.
+This project is a modular, **NestJS API** that includes full CRUD functionality, database integration using **PostgreSQL and TypeORM**, input validation, custom pipes, middleware logging, pagination, and API key-based authentication, swagger implementation.
 
 ## Features Implemented in MAIN BRANCH
 
