@@ -15,14 +15,15 @@ export class UsersService {
 
   async create(userDTO: CreateUserDTO): Promise<User> {
     const user = new User();
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(userDTO.password, salt); // hash
     user.firstName = userDTO.firstName;
     user.lastName = userDTO.lastName;
     user.email = userDTO.email;
     user.apiKey = uuid4();
-    user.password = userDTO.password;
+    user.password = hashedPassword;
+    user.phone = userDTO.phone;
 
-    const salt = await bcrypt.genSalt();
-    userDTO.password = await bcrypt.hash(userDTO.password, salt);
     // const user = await this.userRepository.save(userDTO);
     // delete user.password;
     // return user;

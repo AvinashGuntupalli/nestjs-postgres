@@ -8,43 +8,94 @@ import { Enable2FAType, PayloadType } from './dto/types';
 import * as speakeasy from 'speakeasy';
 import { UpdateResult } from 'typeorm';
 import { User } from '../users/users.entity';
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UsersService,
     private jwtService: JwtService, // auth
     private artistService: ArtistsService,
+    private configService: ConfigService,
   ) {}
 
+  // async login(
+  //   loginDTO: LoginDTO,
+  // ): Promise<
+  //   { accessToken: string } | { validate2FA: string; message: string }
+  // > {
+  //   console.log('Incoming login DTO:', loginDTO); // Log incoming data
+  //   const user = await this.userService.findOne(loginDTO);
+  //   if (!user) {
+  //     throw new UnauthorizedException('User not found');
+  //   }
+  //   const passwordMatched = await bcrypt.compare(
+  //     loginDTO.password,
+  //     user.password,
+  //   );
+  //   console.log('Password matched:', passwordMatched); // Log comparison result
+  //   if (passwordMatched) {
+  //     delete user.password;
+  //     const payload: PayloadType = { email: user.email, userId: user.id };
+
+  //     if (user.enable2FA && user.twoFASecret) {
+  //       return {
+  //         validate2FA: 'http://localhost:3000/auth/validate-2fa',
+  //         message:
+  //           'Please send the one-time password/token from your Google Authenticator App',
+  //       };
+  //     }
+  //     return {
+  //       accessToken: this.jwtService.sign(payload),
+  //     };
+  //   } else {
+  //     throw new UnauthorizedException('Password does not match');
+  //   }
+  // }
   async login(
     loginDTO: LoginDTO,
   ): Promise<
-    { accessToken: string } | { validate2FA: string; message: string }
+    | { accessToken: string }
+    | { tempToken: string; validate2FA: string; message: string }
   > {
-    const user = await this.userService.findOne(loginDTO); //1
+    console.log('Incoming login DTO:', loginDTO);
+
+    const user = await this.userService.findOne(loginDTO);
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
     const passwordMatched = await bcrypt.compare(
       loginDTO.password,
       user.password,
     );
-    if (passwordMatched) {
-      delete user.password; // 4. return user;
-      const payload: PayloadType = { email: user.email, userId: user.id }; // Sends JWT Token back in the response
-      // If user has enabled 2FA and have the secret key then
-      if (user.enable2FA && user.twoFASecret) {
-        // sends the validateToken request link
-        // else otherwise sends the json web token in the response
-        return {
-          validate2FA: 'http://localhost:3000/auth/validate-2fa',
-          message:
-            'Please send the one-time password/token from your Google Authenticator App',
-        };
-      }
-      return {
-        accessToken: this.jwtService.sign(payload), /// this is generating the json web token
-      };
-    } else {
+    console.log('Password matched:', passwordMatched);
+
+    if (!passwordMatched) {
       throw new UnauthorizedException('Password does not match');
     }
+
+    delete user.password;
+    const payload: PayloadType = {
+      email: user.email,
+      userId: user.id,
+      // artistId: user.artistId, // include if needed
+    };
+
+    // ✅ Handle 2FA
+    if (user.enable2FA && user.twoFASecret) {
+      const tempToken = this.jwtService.sign(payload, { expiresIn: '5m' });
+      return {
+        tempToken,
+        validate2FA: 'http://localhost:3000/auth/validate-2fa',
+        message:
+          'Please send the one-time password/token from your Google Authenticator App',
+      };
+    }
+
+    // ✅ Return access token
+    return {
+      accessToken: this.jwtService.sign(payload),
+    };
   }
 
   //Two factor authentication function (enable 2fa token) - creates a secret key(Token) for the user and saved in db
@@ -92,5 +143,11 @@ export class AuthService {
 
   async validateUserByApiKey(apiKey: string): Promise<User> {
     return this.userService.findByApiKey(apiKey);
+  }
+
+  getEnvVariables() {
+    return {
+      port: this.configService.get<number>('port'),
+    };
   }
 }

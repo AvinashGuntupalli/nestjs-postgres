@@ -37,10 +37,11 @@
 # Content-Type: application/json
 
 # {
-#   "firstName": "hanna",
+#   "firstName": "hari",
 #   "lastName": "harman",
-#   "email": "hanna123@gmail.com",
-#   "password": "121212122"
+#   "email": "harihenna@gmail.com",
+#   "password": "121212122",
+#   "phone": "1234567890"
 # }
 
 
@@ -126,9 +127,11 @@
 # Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkFydGlzdEFydEBnbWFpbC5jb20iLCJ1c2VySWQiOjcsImFydGlzdElkIjoyLCJpYXQiOjE3NDU5MDM5OTUsImV4cCI6MTc0NTk5MDM5NX0.0Bjt1J2GXchN3omAGMukbqYLWGEqDLpqgr4ihiw7U1k
 
 ###  API Key Authentication ---  give apikey in bearer from sigup endpoint
-# GET http://localhost:3000/auth/profile
-# Authorization: Bearer 36fb83d5-324f-4612-83b0-acfebb74ac7c
-
+GET http://localhost:3000/auth/profile
+Authorization: Bearer df664400-3f5b-46dc-ad27-58c5cbecb103
 
 ### migration
 # npm run migration:generate -- db/migrations/add-user-phone
+
+### test ENV 
+# GET http://localhost:3000/auth/test

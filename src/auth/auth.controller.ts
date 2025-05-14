@@ -16,13 +16,27 @@ import { Enable2FAType } from './dto/types';
 import { ValidateTokenDTO } from './dto/validate-token.dto';
 import { UpdateResult } from 'typeorm';
 import { AuthGuard } from '@nestjs/passport';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiSecurity,
+  ApiTags,
+} from '@nestjs/swagger';
 @Controller('auth')
+@ApiTags('auth')
 export class AuthController {
   constructor(
     private userService: UsersService,
     private authService: AuthService,
   ) {}
+
   @Post('signup')
+  @ApiOperation({ summary: 'Register new user' })
+  @ApiResponse({
+    status: 201,
+    description: 'It will return the user in the response',
+  })
   signup(
     @Body()
     userDTO: CreateUserDTO,
@@ -30,7 +44,13 @@ export class AuthController {
     return this.userService.create(userDTO);
   }
 
-  @Post('login') login(
+  @Post('login')
+  @ApiOperation({ summary: 'Login user' })
+  @ApiResponse({
+    status: 200,
+    description: 'It will give you the access_token in the response',
+  })
+  login(
     @Body()
     loginDTO: LoginDTO,
   ) {
@@ -72,14 +92,18 @@ export class AuthController {
   }
 
   // API Key Authentication
-  @Get('profile') @UseGuards(AuthGuard('bearer')) getProfile(
-    @Request()
-    req,
-  ) {
-    delete req.user.password;
-    return {
-      msg: 'authenticated with api key',
-      user: req.user,
-    };
+  @Get('profile')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  getProfile(@Request() req) {
+    // console.log(req.user); // This should show the authenticated user
+    // delete req.user.password; // Don't expose the password
+    return req.user;
+  }
+
+  //For testing the env variables
+  @Get('test')
+  testEnv() {
+    return this.authService.getEnvVariables();
   }
 }

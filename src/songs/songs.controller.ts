@@ -24,14 +24,6 @@ import { JwtArtistGuard } from '../auth/jwt-artist.guard';
 export class SongsController {
   constructor(private songsService: SongsService) {}
 
-  // @Get()
-  // findAll(): Promise<Song[]> {
-  //   try {
-  //     return this.songsService.findAll();
-  //   } catch (e) {
-  //     throw new HttpException('server error', HttpStatus.INTERNAL_SERVER_ERROR); //Error exceptions
-  //   }
-  // }
   @Get() // pagination
   findAll(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe)
