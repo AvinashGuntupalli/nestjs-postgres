@@ -25,8 +25,8 @@ This project is a modular, **NestJS API** that includes full CRUD functionality,
 - Modular Setup: Migration and seed logic separated cleanly inside db/migrations/ and db/seeding/.
 
 ## Features Implemented in final BRANCH
--  Swagger implementation
+-  Swagger implementation link --> http://localhost:3000/api#/
 -  Configuration changes 
--  Over all code implementaion 
+-  Over all code 
 
 
