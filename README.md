@@ -1,4 +1,4 @@
-# nestjs-api-postgres-db-auth-pgAdmin
+# nestjs-api-postgres-db-auth-pgAdmin-swagger
 
 # NestJS CRUD API with PostgreSQL, Validation, and Auth
 
@@ -23,3 +23,10 @@ This project is a modular, **NestJS API** that includes full CRUD functionality,
 - TypeORM Migrations: Manage database schema changes with version control.
 - Database Seeding: Automatically populate tables with initial data like users, roles, etc.
 - Modular Setup: Migration and seed logic separated cleanly inside db/migrations/ and db/seeding/.
+
+## Features Implemented in final BRANCH
+-  Swagger implementation
+-  Configuration changes 
+-  Over all code implementaion 
+
+
