@@ -74,7 +74,8 @@ export class AuthService {
     const secret = speakeasy.generateSecret();
     console.log(secret);
     user.twoFASecret = secret.base32;
-    await this.userService.updateSecretKey(user.id, user.twoFASecret); //return { secret: user.twoFASecret }; //6
+    await this.userService.updateSecretKey(user.id, user.twoFASecret);
+    return { secret: user.twoFASecret };
   }
 
   // validate the 2fa secret with provided token (validate 2fa token) - Verify One-time password/token
